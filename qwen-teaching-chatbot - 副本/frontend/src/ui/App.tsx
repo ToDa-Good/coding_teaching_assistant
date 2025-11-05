@@ -1,206 +1,232 @@
-import React, { useRef, useState, useEffect } from 'react'
-import Editor from '@monaco-editor/react'
+// frontend/src/ui/App.tsx
+import React, { useState, useRef, useEffect } from "react";
+import Editor from "@monaco-editor/react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github.css";
 
-type Msg = { role: 'user' | 'assistant'; content: string }
+type Msg = { role: "user" | "assistant"; content: string };
 
 const defaultCode = `# 你可以在这里写 Python 代码，然后点击“运行”查看结果
-# 例如：
 def fib(n):
     return 1 if n <= 2 else fib(n-1) + fib(n-2)
 
 print("fib(10) =", fib(10))
-`
+`;
 
 export default function App() {
-  // —— 全局注入样式：彻底取消页面滚动，仅允许内部容器滚动 ——
-  useEffect(() => {
-    const style = document.createElement('style')
-    style.innerHTML = `
-      html, body, #root { height: 100%; margin: 0; overflow: hidden; }
-      * { box-sizing: border-box; }
-    `
-    document.head.appendChild(style)
-    return () => document.head.removeChild(style)
-  }, [])
-
   const [messages, setMessages] = useState<Msg[]>([
-    { role: 'assistant', content: '你好！我是一名编程教学助手，右侧可以和我聊天，左侧可以直接写 Python 代码并运行～' }
-  ])
-  const [input, setInput] = useState('请帮我解释一下递归函数的时间复杂度。')
-  const [busy, setBusy] = useState(false)               // 统一的忙碌状态（运行/聊天）
-  const [code, setCode] = useState(defaultCode)
-  const [output, setOutput] = useState('')
-  const chatScrollRef = useRef<HTMLDivElement>(null)
+    { role: "assistant", content: "你好！我是编程教学助手，右侧可以聊天，左侧可写 Python 代码～" }
+  ]);
+  const [input, setInput] = useState("请帮我解释一下递归函数的时间复杂度。");
+  const [busy, setBusy] = useState(false);
+  const [code, setCode] = useState(defaultCode);
+  const [output, setOutput] = useState("");
+  const [errorMode, setErrorMode] = useState(false);
+  const [errorLevel, setErrorLevel] = useState("轻微");
+  const [errorType, setErrorType] = useState("语法错误");
+  const chatScrollRef = useRef<HTMLDivElement>(null);
 
+  // 保持聊天区滚动到底部
   useEffect(() => {
-    const el = chatScrollRef.current
-    if (el) el.scrollTop = el.scrollHeight
-  }, [messages])
+    const el = chatScrollRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [messages]);
 
-  // —— 运行 Python 代码（后端 /api/run-python） ——
+  // 运行 Python 代码
   const runCode = async () => {
-    setOutput('正在运行...\n')
+    setOutput("正在运行...\n");
     try {
-      const resp = await fetch('http://localhost:8787/api/run-python', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const resp = await fetch("http://localhost:8787/api/run-python", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code })
-      })
-      if (!resp.ok) throw new Error(resp.statusText)
-      const data = await resp.json()
-      setOutput(data.error ? data.error : (data.output || ''))
+      });
+      if (!resp.ok) throw new Error(resp.statusText);
+      const data = await resp.json();
+      setOutput(data.error ? data.error : data.output || "");
     } catch (e: any) {
-      setOutput('运行出错：' + e.message)
+      setOutput("运行出错：" + e.message);
     }
-  }
+  };
 
-  // —— 发送消息到聊天（后端 /api/chat，流式） ——
+  // 发送聊天消息
   const send = async () => {
-    if (!input.trim()) return
-    const nextMsgs = [...messages, { role: 'user', content: input }]
-    setMessages(nextMsgs)
-    setInput('')
-    setBusy(true)
+    if (!input.trim()) return;
+    const nextMsgs = [...messages, { role: "user", content: input }];
+    setMessages(nextMsgs);
+    setInput("");
+    setBusy(true);
 
     try {
-      const resp = await fetch('http://localhost:8787/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: nextMsgs })
-      })
-      if (!resp.ok) throw new Error(resp.statusText)
+      const resp = await fetch("http://localhost:8787/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: nextMsgs, max_tokens: 500 }) // 限制500字
+      });
+      if (!resp.ok) throw new Error(resp.statusText);
 
-      const reader = resp.body!.getReader()
-      const decoder = new TextDecoder()
-      let assistant = ''
-      setMessages(m => [...m, { role: 'assistant', content: '' }])
+      const reader = resp.body!.getReader();
+      const decoder = new TextDecoder();
+      let assistant = "";
+      setMessages((m) => [...m, { role: "assistant", content: "" }]);
 
-      let doneOuter = false
-      while (!doneOuter) {
-        const { value, done } = await reader.read()
-        if (done) break
-        const chunk = decoder.decode(value)
-        const lines = chunk.split('\n\n').filter(Boolean)
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value);
+        const lines = chunk.split("\n\n").filter(Boolean);
         for (const line of lines) {
-          if (!line.startsWith('data:')) continue
-          const data = line.slice(5).trim()
-          if (data === '[DONE]') { doneOuter = true; break }
+          if (!line.startsWith("data:")) continue;
+          const dataStr = line.slice(5).trim();
+          if (dataStr === "[DONE]") break;
           try {
-            const obj = JSON.parse(data)
+            const obj = JSON.parse(dataStr);
             if (obj.delta) {
-              assistant += obj.delta
-              setMessages(m => {
-                const copy = [...m]
-                const last = copy[copy.length - 1]
-                if (last?.role === 'assistant') last.content = assistant
-                return copy
-              })
+              assistant += obj.delta;
+              setMessages((m) => {
+                const copy = [...m];
+                const last = copy[copy.length - 1];
+                if (last?.role === "assistant") last.content = assistant;
+                return copy;
+              });
             }
           } catch {}
         }
       }
     } catch (e: any) {
-      setMessages(m => [...m, { role: 'assistant', content: '调用后端出错：' + e.message }])
+      setMessages((m) => [...m, { role: "assistant", content: "调用后端出错：" + e.message }]);
     } finally {
-      setBusy(false)
+      setBusy(false);
     }
+  };
+
+  // 生成错误代码
+const generateErrorCode = async () => {
+  setBusy(true);
+  try {
+    const resp = await fetch("http://localhost:8787/api/generate-error", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ level: errorLevel, type: errorType })
+    });
+    if (!resp.ok) throw new Error(resp.statusText);
+
+    const reader = resp.body!.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let codeContent = "";
+    let tipContent = "";
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      const lines = buffer.split("\n").filter(Boolean);
+      for (const line of lines) {
+        try {
+          const obj = JSON.parse(line);
+          if (obj.code) {
+            // 去掉 ```python
+            codeContent = obj.code.replace(/^```(python)?\n?|```$/g, "");
+          }
+          if (obj.tip) {
+            tipContent = obj.tip; // 提示单独记录
+          }
+        } catch {
+          // JSON不完整，等待下一 chunk
+        }
+      }
+    }
+
+    setCode(codeContent); // 填入编辑器
+    if (tipContent) setMessages((m) => [...m, { role: "assistant", content: tipContent }]); // tip放聊天区
+
+  } catch (e: any) {
+    alert("生成出错：" + e.message);
+  } finally {
+    setBusy(false);
   }
+};
+
 
   return (
-    // 最外层：固定在视口，禁止页面滚动，内部各区自己滚动
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        overflow: 'hidden',     // 关键：不让内容把页面撑高
-        background: '#fff'
-      }}
-    >
-      {/* 左侧：代码编辑 + 输出（自身不滚动，由内部控制） */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          borderRight: '1px solid #eee',
-          minHeight: 0,
-          height: '100%',
-          overflow: 'hidden'    // 关键：左列不把父容器撑出滚动
-        }}
-      >
-        {/* 编辑器区：顶部工具条 + 可伸缩编辑器 */}
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
-          <div style={{ padding: 8, display: 'flex', gap: 8, alignItems: 'center', borderBottom: '1px solid #eee', flexShrink: 0 }}>
-            <strong>代码编辑区（Python）</strong>
-            <button onClick={runCode} disabled={busy}>运行</button>
-          </div>
-          <div style={{ flex: 1, minHeight: 0 }}>
-            <Editor
-              height="100%"
-              defaultLanguage="python"
-              theme="vs-dark"
-              value={code}
-              onChange={(v) => setCode(v ?? '')}
-              options={{ fontSize: 14, minimap: { enabled: false } }}
-            />
-          </div>
+    <div style={{ position: "fixed", inset: 0, display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden", background: "#fff" }}>
+      {/* 左侧代码区 */}
+      <div style={{ display: "flex", flexDirection: "column", borderRight: "1px solid #eee", minHeight: 0, height: "100%", overflow: "hidden" }}>
+        <div style={{ padding: 8, display: "flex", gap: 8, alignItems: "center", borderBottom: "1px solid #eee", flexShrink: 0, flexWrap: "wrap" }}>
+          <strong>代码编辑区（Python）</strong>
+          <button onClick={() => setErrorMode((v) => !v)} disabled={busy}>
+            {errorMode ? "关闭错误模式" : "开启错误模式"}
+          </button>
+          {errorMode && (
+            <>
+              <label>
+                错误等级：
+                <select value={errorLevel} onChange={(e) => setErrorLevel(e.target.value)} style={{ marginLeft: 4 }}>
+                  <option value="轻微">轻微</option>
+                  <option value="中等">中等</option>
+                  <option value="严重">严重</option>
+                </select>
+              </label>
+              <label>
+                错误类型：
+                <select value={errorType} onChange={(e) => setErrorType(e.target.value)} style={{ marginLeft: 4 }}>
+                  <option value="语法错误">语法错误</option>
+                  <option value="逻辑错误">逻辑错误</option>
+                  <option value="内容错误">内容错误</option>
+                </select>
+              </label>
+              <button onClick={generateErrorCode} disabled={busy}>生成错误代码</button>
+            </>
+          )}
+          <button onClick={runCode} disabled={busy}>运行</button>
         </div>
 
-        {/* 输出区固定高度，内部可滚动 */}
-        <div style={{ display: 'flex', flexDirection: 'column', borderTop: '1px solid #eee', height: 200, flexShrink: 0 }}>
-          <div style={{ padding: '6px 8px', borderBottom: '1px solid #eee', background: '#fafafa' }}>运行输出</div>
-          <div style={{ flex: 1, padding: 8, background: 'black', color: 'white', whiteSpace: 'pre-wrap', overflowY: 'auto' }}>
-            {output}
-          </div>
+        <div style={{ flex: 1, minHeight: 0 }}>
+          <Editor
+            height="100%"
+            defaultLanguage="python"
+            theme="vs-dark"
+            value={code}
+            onChange={(v) => setCode(v ?? "")}
+            options={{ fontSize: 14, minimap: { enabled: false } }}
+          />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid #eee", height: 200, flexShrink: 0 }}>
+          <div style={{ padding: "6px 8px", borderBottom: "1px solid #eee", background: "#fafafa" }}>运行输出</div>
+          <div style={{ flex: 1, padding: 8, background: "black", color: "white", whiteSpace: "pre-wrap", overflowY: "auto" }}>{output}</div>
         </div>
       </div>
 
-      {/* 右侧：Chatbot（右列自己的滚动条） */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: 0,
-          height: '100%',
-          overflow: 'hidden'      // 关键：右列本身不产生页面滚动
-        }}
-      >
-        {/* 消息区：独立滚动 */}
-        <div
-          ref={chatScrollRef}
-          style={{
-            flex: 1,
-            minHeight: 0,
-            overflowY: 'auto',    // 关键：右侧的滚动条在这里！
-            padding: 12
-          }}
-        >
+      {/* 右侧聊天区 */}
+      <div style={{ display: "flex", flexDirection: "column", minHeight: 0, height: "100%", overflow: "hidden" }}>
+        <div ref={chatScrollRef} style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: 12 }}>
           {messages.map((m, i) => (
-            <div key={i} style={{ whiteSpace: 'pre-wrap', marginBottom: 12 }}>
-              <div style={{ fontSize: 12, opacity: 0.6 }}>{m.role === 'user' ? '你' : '助手'}</div>
-              <div>{m.content}</div>
+            <div key={i} style={{ whiteSpace: "pre-wrap", marginBottom: 12 }}>
+              <div style={{ fontSize: 12, opacity: 0.6 }}>{m.role === "user" ? "你" : "助手"}</div>
+              <div style={{ padding: "6px 10px", background: m.role === "assistant" ? "#f7f7f7" : "transparent", borderRadius: 6 }}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>{m.content}</ReactMarkdown>
+              </div>
             </div>
           ))}
           {busy && <div style={{ opacity: 0.6 }}>模型思考中…</div>}
         </div>
 
-        {/* 输入区固定在底部，不参与滚动 */}
-        <div style={{ padding: 12, borderTop: '1px solid #eee', display: 'flex', gap: 8, flexShrink: 0 }}>
+        <div style={{ padding: 12, borderTop: "1px solid #eee", display: "flex", gap: 8, flexShrink: 0 }}>
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) send() }}
+            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) send(); }}
             placeholder="向编程助手提问…"
-            style={{ flex: 1, padding: '8px 10px' }}
+            style={{ flex: 1, padding: "8px 10px" }}
           />
           <button onClick={send} disabled={busy || !input.trim()}>发送</button>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-
-
-
