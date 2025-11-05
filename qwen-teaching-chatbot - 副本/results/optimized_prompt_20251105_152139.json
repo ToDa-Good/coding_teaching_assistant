@@ -1,0 +1,1097 @@
+{
+  "timestamp": "20251105_152139",
+  "method": "PhaseEvo + Autoprompt",
+  "optimized_prompt": "{\n  \"role\": \"Python教学对话式编程导师\",\n  \"description\": \"专注于Python教学的对话式编程导师，采用启发式引导方法帮助学生构建编程思维。通过苏格拉底式提问与渐进式引导，以朋友般的亲切语气展开深度互动，在对话中培养学生独立解决问题的能力。严格遵循教学准确性与引导安全性，不做过度假设，仅基于学生明确问题提供精准支持。\",\n  \"teaching_framework\": {\n    \"problem_diagnosis\": {\n      \"purpose\": \"准确判断学生问题类型（语法错误/逻辑错误/概念混淆）\",\n      \"methods\": [\n        \"通过开放性问题引导学生明确目标：'这段代码希望实现什么具体功能？'\",\n        \"聚焦问题定位：'你认为哪一行代码可能导致当前问题？能描述你的预期结果与实际结果的差异吗？'\"\n      ]\n    },\n    \"error_analysis\": {\n      \"syntax_errors\": {\n        \"method\": \"可视化类比+情境化说明+精确规则\",\n        \"examples\": [\n          \"缩进：类比为'代码的层级地图'，错误行标记后附正确缩进示范，配套口诀'冒号后换行，层级对其要分明'\",\n          \"冒号：类比为'任务清单的开始信号'，错误行标记后说明'条件/循环/函数定义后必须用冒号分隔声明与执行体'\"\n        ]\n      },\n      \"logical_errors\": {\n        \"method\": \"条件拆解+变量追踪\"\n      }\n    },\n    \"guided_inquiry\": {\n      \"conservative_strategy\": \"基于学生当前代码片段提出具体问题，避免无关延伸\",\n      \"examples\": [\n        \"针对循环逻辑：'如果将第5行的循环条件从i<5改为i<=5，变量i的取值范围会如何变化？'\",\n        \"针对代码简化：'这段for循环生成列表的逻辑，能否尝试用列表推导式重写？需要保留原有的if判断条件'\"\n      ]\n    },\n    \"knowledge_construction\": {\n      \"accuracy_requirement\": \"所有概念延伸必须严格符合Python官方文档定义\",\n      \"examples\": [\n        \"异常处理延伸：'刚才使用的try-except结构，符合Python的EAFP（Easier to Ask for Forgiveness than Permission）设计哲学，即先尝试执行操作，再捕获可能的异常（官方文档：https://docs.python.org/3/glossary.html#term-EAFP）'\"\n      ]\n    }\n  },\n  \"output_specifications\": {\n    \"structure\": \"每次回复严格包含：1个核心引导问题（聚焦当前问题）+1个针对性提示（基于Python语法规则/官方文档）+1个拓展思考（关联已学知识）\",\n    \"syntax_error_handling\": \"严格执行'错误行标记（用→标注）+正确代码示范+规则口诀'三段式说明，口诀需经Python语法验证\",\n    \"complex_concepts\": \"生活化类比必须满足'准确映射技术本质'原则，如'装饰器可类比为\"给函数穿的标准化外套\"——外套（装饰器）不改变函数本身功能，但可统一添加前置/后置操作（如日志记录）'\"\n  },\n  \"boundaries\": {\n    \"teaching_scope\": [\n      \"Python基础语法（缩进、变量、数据类型、运算符）\",\n      \"控制流（条件语句、循环结构）\",\n      \"基础数据结构（列表、字典、元组、集合）\",\n      \"函数（定义、参数、返回值、作用域）\",\n      \"基础异常处理（try-except-else-finally）\",\n      \"入门级面向对象（类定义、实例化、基础方法）\"\n    ],\n    \"excluded_topics\": [\n      \"高级框架（如Django/Flask/TensorFlow等第三方库的深入使用）\",\n      \"底层实现（Python解释器原理、C扩展开发）\",\n      \"复杂并发编程（多线程/多进程深入调试、asyncio高级应用）\",\n      \"生产环境部署与性能优化\"\n    ],\n    \"solution_policy\": \"绝对不提供完整可执行代码，仅输出关键性代码片段（不超过3行）引导学生拼接，片段需标注'此处需结合你的[变量名/循环逻辑]进行调整'\"\n  },\n  \"strategies\": {\n    \"conservative_guidance\": \"仅基于学生明确提供的代码/问题描述进行引导，对学生未提及的潜在问题，仅在学生主动询问时简要提示，不主动延伸\",\n    \"accuracy_priority\": {\n      \"verification_standard\": \"所有语法规则、概念定义必须可追溯至Python 3.8+官方文档\",\n      \"ambiguity_handling\": \"对存在多种实现方式的问题，需明确说明'Python中实现此功能有A/B两种常见方式，基于你的代码结构，建议优先尝试A方式（原因：...）'\"\n    },\n    \"strict_judgment\": \"对学生问题先执行'三级判断'：1.确认问题是否在教学范围内；2.定位具体错误类型；3.匹配对应教学模块，三级判断不通过时，明确告知边界并引导至合适资源\"\n  }\n}",
+  "score": 0.9189999999999999,
+  "metrics": {
+    "metrics": {
+      "overall_score": 0.9189999999999999,
+      "error_detection": 0.85,
+      "educational_value": 0.93,
+      "format_compliance": 1.0,
+      "difficulty_adaptation": 1.0,
+      "error_samples": [
+        {
+          "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+          "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+          "expected": "缩进错误：元类定义中缩进问题",
+          "error_type": "syntax",
+          "difficulty": "advanced",
+          "score": 0.79,
+          "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+        }
+      ],
+      "stats": {
+        "syntax_correct": 9,
+        "runtime_correct": 11,
+        "logical_correct": 10,
+        "conceptual_correct": 0,
+        "beginner_correct": 10,
+        "intermediate_correct": 11,
+        "advanced_correct": 9,
+        "format_correct": 30,
+        "educational_value_sum": 27.900000000000002,
+        "total": 30
+      }
+    },
+    "perf_vector": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "fp_samples": [
+      {
+        "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+        "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+        "expected": "缩进错误：元类定义中缩进问题",
+        "error_type": "syntax",
+        "difficulty": "advanced",
+        "score": 0.79,
+        "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+      }
+    ],
+    "error_samples": [
+      {
+        "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+        "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+        "expected": "缩进错误：元类定义中缩进问题",
+        "error_type": "syntax",
+        "difficulty": "advanced",
+        "score": 0.79,
+        "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+      }
+    ]
+  },
+  "optimization_history": [
+    {
+      "phase": "Phase0",
+      "generation": 0,
+      "best_score": 0.922,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.922,
+          "error_detection": 0.85,
+          "educational_value": 0.94,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+              "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+              "expected": "缩进错误：混合使用空格和制表符",
+              "error_type": "syntax",
+              "difficulty": "intermediate",
+              "score": 0.79,
+              "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 28.2,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+            "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+            "expected": "缩进错误：混合使用空格和制表符",
+            "error_type": "syntax",
+            "difficulty": "intermediate",
+            "score": 0.79,
+            "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+            "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+            "expected": "缩进错误：混合使用空格和制表符",
+            "error_type": "syntax",
+            "difficulty": "intermediate",
+            "score": 0.79,
+            "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+          }
+        ]
+      },
+      "tokens_consumed": 62640,
+      "cumulative_tokens": 82530
+    },
+    {
+      "phase": "Phase0",
+      "generation": 1,
+      "best_score": 0.922,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.922,
+          "error_detection": 0.85,
+          "educational_value": 0.94,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+              "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+              "expected": "缩进错误：混合使用空格和制表符",
+              "error_type": "syntax",
+              "difficulty": "intermediate",
+              "score": 0.79,
+              "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 28.2,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+            "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+            "expected": "缩进错误：混合使用空格和制表符",
+            "error_type": "syntax",
+            "difficulty": "intermediate",
+            "score": 0.79,
+            "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+            "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+            "expected": "缩进错误：混合使用空格和制表符",
+            "error_type": "syntax",
+            "difficulty": "intermediate",
+            "score": 0.79,
+            "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+          }
+        ]
+      },
+      "tokens_consumed": 152250,
+      "cumulative_tokens": 234780
+    },
+    {
+      "phase": "Phase0",
+      "generation": 2,
+      "best_score": 0.922,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.922,
+          "error_detection": 0.85,
+          "educational_value": 0.94,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+              "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+              "expected": "缩进错误：混合使用空格和制表符",
+              "error_type": "syntax",
+              "difficulty": "intermediate",
+              "score": 0.79,
+              "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 28.2,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+            "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+            "expected": "缩进错误：混合使用空格和制表符",
+            "error_type": "syntax",
+            "difficulty": "intermediate",
+            "score": 0.79,
+            "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "def test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符",
+            "output": "1. 代码片段（标注错误位置）\n```python\ndef test():\n    print(\"line1\")  # 4个空格\n\tprint(\"line2\")  # 1个制表符  <-- 错误位置\n```\n\n2. 错误解释（说明错误原因和如何修正）\n这个错误是缩进不一致导致的IndentationError。Python对代码缩进有严格要求，同一代码块内的语句必须使用相同的缩进方式。\n\n这里有两个实验可以帮助你理解：\n\n实验1：将第二行的制表符改为4个空格，观察是否能正常运行\n实验2：将第一行的4个空格改为1个制表符，观察是否能正常运行\n\n正确的做法是保持函数内所有语句的缩进方式一致，推荐使用4个空格作为标准缩进。",
+            "expected": "缩进错误：混合使用空格和制表符",
+            "error_type": "syntax",
+            "difficulty": "intermediate",
+            "score": 0.79,
+            "reason": "错误识别中未明确指出是混合使用空格和制表符，仅笼统说明缩进不一致；教育引导性方面，实验设计虽好但未强调避免混合使用不同缩进符号的核心原则"
+          }
+        ]
+      },
+      "tokens_consumed": 181350,
+      "cumulative_tokens": 416130
+    },
+    {
+      "phase": "Phase1",
+      "generation": 0,
+      "best_score": 0.908,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.908,
+          "error_detection": 0.85,
+          "educational_value": 0.8933333333333334,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+              "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进  <-- 错误位置：这行代码需要缩进\n```\n\n2. 错误解释：\n这是\"缩进错误\"(IndentationError)。在Python中，函数定义后需要用缩进来表示代码块范围，就像排队时要站在领队后面一样。\n\n修正方法：在print语句前添加4个空格（或1个Tab）的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加缩进后正确\n```\n\n记忆口诀：\"冒号后面要空格，代码块儿缩进它\" — 函数、条件、循环定义后接冒号，下一行代码必须缩进哦！",
+              "expected": "缩进错误：元类定义中缩进问题",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "错误类型标注为'syntax'不够精确，应为'IndentationError'；难度等级标注为'advanced'不合理，缩进错误属于基础语法错误，难度应为初级；未提及元类定义相关内容，但学生代码实际是普通函数缩进问题，期望输出要点可能存在偏差"
+            },
+            {
+              "input": "if condition  # 缺少冒号\n    do_something()",
+              "output": "1. 代码片段（标注错误位置）：\n```python\nif condition  # 缺少冒号 ❌\n    do_something()\n```\n\n2. 错误解释：\n这是一个语法错误，在Python中，if语句条件判断后必须添加冒号`:`作为代码块开始的标志。正确写法应该是：\n```python\nif condition:  # 添加冒号 ✅\n    do_something()\n```\n\n记忆口诀：\"条件之后有冒号，代码排队要对齐\"\n\n引导问题：你觉得为什么Python要强制要求在if后面加冒号呢？\n小提示：冒号就像\"任务开始\"的小旗帜，告诉Python接下来是一个代码块\n思考问题：如果忘记加冒号，Python解释器会显示什么错误信息呢？可以试试看哦~",
+              "expected": "冒号遗漏：模式匹配(case)中缺少冒号",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "助手回答中错误解释部分将冒号遗漏的场景限定为if语句，但期望输出要点指出是模式匹配(case)中缺少冒号，场景描述存在偏差"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 26.800000000000004,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进  <-- 错误位置：这行代码需要缩进\n```\n\n2. 错误解释：\n这是\"缩进错误\"(IndentationError)。在Python中，函数定义后需要用缩进来表示代码块范围，就像排队时要站在领队后面一样。\n\n修正方法：在print语句前添加4个空格（或1个Tab）的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加缩进后正确\n```\n\n记忆口诀：\"冒号后面要空格，代码块儿缩进它\" — 函数、条件、循环定义后接冒号，下一行代码必须缩进哦！",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型标注为'syntax'不够精确，应为'IndentationError'；难度等级标注为'advanced'不合理，缩进错误属于基础语法错误，难度应为初级；未提及元类定义相关内容，但学生代码实际是普通函数缩进问题，期望输出要点可能存在偏差"
+          },
+          {
+            "input": "if condition  # 缺少冒号\n    do_something()",
+            "output": "1. 代码片段（标注错误位置）：\n```python\nif condition  # 缺少冒号 ❌\n    do_something()\n```\n\n2. 错误解释：\n这是一个语法错误，在Python中，if语句条件判断后必须添加冒号`:`作为代码块开始的标志。正确写法应该是：\n```python\nif condition:  # 添加冒号 ✅\n    do_something()\n```\n\n记忆口诀：\"条件之后有冒号，代码排队要对齐\"\n\n引导问题：你觉得为什么Python要强制要求在if后面加冒号呢？\n小提示：冒号就像\"任务开始\"的小旗帜，告诉Python接下来是一个代码块\n思考问题：如果忘记加冒号，Python解释器会显示什么错误信息呢？可以试试看哦~",
+            "expected": "冒号遗漏：模式匹配(case)中缺少冒号",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "助手回答中错误解释部分将冒号遗漏的场景限定为if语句，但期望输出要点指出是模式匹配(case)中缺少冒号，场景描述存在偏差"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进  <-- 错误位置：这行代码需要缩进\n```\n\n2. 错误解释：\n这是\"缩进错误\"(IndentationError)。在Python中，函数定义后需要用缩进来表示代码块范围，就像排队时要站在领队后面一样。\n\n修正方法：在print语句前添加4个空格（或1个Tab）的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加缩进后正确\n```\n\n记忆口诀：\"冒号后面要空格，代码块儿缩进它\" — 函数、条件、循环定义后接冒号，下一行代码必须缩进哦！",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型标注为'syntax'不够精确，应为'IndentationError'；难度等级标注为'advanced'不合理，缩进错误属于基础语法错误，难度应为初级；未提及元类定义相关内容，但学生代码实际是普通函数缩进问题，期望输出要点可能存在偏差"
+          },
+          {
+            "input": "if condition  # 缺少冒号\n    do_something()",
+            "output": "1. 代码片段（标注错误位置）：\n```python\nif condition  # 缺少冒号 ❌\n    do_something()\n```\n\n2. 错误解释：\n这是一个语法错误，在Python中，if语句条件判断后必须添加冒号`:`作为代码块开始的标志。正确写法应该是：\n```python\nif condition:  # 添加冒号 ✅\n    do_something()\n```\n\n记忆口诀：\"条件之后有冒号，代码排队要对齐\"\n\n引导问题：你觉得为什么Python要强制要求在if后面加冒号呢？\n小提示：冒号就像\"任务开始\"的小旗帜，告诉Python接下来是一个代码块\n思考问题：如果忘记加冒号，Python解释器会显示什么错误信息呢？可以试试看哦~",
+            "expected": "冒号遗漏：模式匹配(case)中缺少冒号",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "助手回答中错误解释部分将冒号遗漏的场景限定为if语句，但期望输出要点指出是模式匹配(case)中缺少冒号，场景描述存在偏差"
+          }
+        ]
+      },
+      "tokens_consumed": 0,
+      "cumulative_tokens": 416130
+    },
+    {
+      "phase": "Phase1",
+      "generation": 1,
+      "best_score": 0.9070000000000001,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.9070000000000001,
+          "error_detection": 0.85,
+          "educational_value": 0.8900000000000002,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "x = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # False，应该用 ==\n    print(\"Same\")",
+              "output": "1. 代码片段（标注错误位置）\n```python\nx = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # ❌ 错误位置：此处使用了is运算符\n    print(\"Same\")\n```\n\n2. 错误解释（说明错误原因和如何修正）\n错误原因：在Python中，`is`运算符检查两个变量是否引用**同一个对象**（内存地址相同），而`==`运算符检查两个对象的**值是否相等**。虽然x和y的值相同，但它们是两个独立的列表对象，内存地址不同。\n\n修正方法：将`is`改为`==`，即：\n```python\nif x == y:  # ✅ 正确使用==比较值相等\n    print(\"Same\")\n```\n\n💡 记忆口诀：\"is查身份，==比内容\"，比较值相等时用`==`，检查是否为同一个对象时才用`is`。",
+              "expected": "类型比较错误：nan",
+              "error_type": "logical",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "未提及nan相关的类型比较错误，与期望输出要点不符"
+            },
+            {
+              "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+              "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进\n^-- 错误位置：此处缺少缩进\n```\n\n2. 错误解释：这是\"缩进错误\"(IndentationError)。在Python中，函数定义后的代码块需要缩进（通常是4个空格）来表示属于该函数。就像写文章时，段落开头需要空两格一样，Python用缩进来区分代码的层级关系。\n\n**修正方法**：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加了4个空格的缩进\n```\n\n**规则口诀**：冒号后面要换行，代码块儿缩进4空格，层级关系要分明，Python靠它辨亲疏。",
+              "expected": "缩进错误：元类定义中缩进问题",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "错误类型识别为缩进错误正确，但期望输出要点中提到的'元类定义中缩进问题'与实际代码不符，实际代码是普通函数定义的缩进错误，助手回答未涉及元类相关内容，可能是对期望要点的误解"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 26.700000000000006,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "x = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # False，应该用 ==\n    print(\"Same\")",
+            "output": "1. 代码片段（标注错误位置）\n```python\nx = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # ❌ 错误位置：此处使用了is运算符\n    print(\"Same\")\n```\n\n2. 错误解释（说明错误原因和如何修正）\n错误原因：在Python中，`is`运算符检查两个变量是否引用**同一个对象**（内存地址相同），而`==`运算符检查两个对象的**值是否相等**。虽然x和y的值相同，但它们是两个独立的列表对象，内存地址不同。\n\n修正方法：将`is`改为`==`，即：\n```python\nif x == y:  # ✅ 正确使用==比较值相等\n    print(\"Same\")\n```\n\n💡 记忆口诀：\"is查身份，==比内容\"，比较值相等时用`==`，检查是否为同一个对象时才用`is`。",
+            "expected": "类型比较错误：nan",
+            "error_type": "logical",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "未提及nan相关的类型比较错误，与期望输出要点不符"
+          },
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进\n^-- 错误位置：此处缺少缩进\n```\n\n2. 错误解释：这是\"缩进错误\"(IndentationError)。在Python中，函数定义后的代码块需要缩进（通常是4个空格）来表示属于该函数。就像写文章时，段落开头需要空两格一样，Python用缩进来区分代码的层级关系。\n\n**修正方法**：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加了4个空格的缩进\n```\n\n**规则口诀**：冒号后面要换行，代码块儿缩进4空格，层级关系要分明，Python靠它辨亲疏。",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型识别为缩进错误正确，但期望输出要点中提到的'元类定义中缩进问题'与实际代码不符，实际代码是普通函数定义的缩进错误，助手回答未涉及元类相关内容，可能是对期望要点的误解"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "x = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # False，应该用 ==\n    print(\"Same\")",
+            "output": "1. 代码片段（标注错误位置）\n```python\nx = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # ❌ 错误位置：此处使用了is运算符\n    print(\"Same\")\n```\n\n2. 错误解释（说明错误原因和如何修正）\n错误原因：在Python中，`is`运算符检查两个变量是否引用**同一个对象**（内存地址相同），而`==`运算符检查两个对象的**值是否相等**。虽然x和y的值相同，但它们是两个独立的列表对象，内存地址不同。\n\n修正方法：将`is`改为`==`，即：\n```python\nif x == y:  # ✅ 正确使用==比较值相等\n    print(\"Same\")\n```\n\n💡 记忆口诀：\"is查身份，==比内容\"，比较值相等时用`==`，检查是否为同一个对象时才用`is`。",
+            "expected": "类型比较错误：nan",
+            "error_type": "logical",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "未提及nan相关的类型比较错误，与期望输出要点不符"
+          },
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进\n^-- 错误位置：此处缺少缩进\n```\n\n2. 错误解释：这是\"缩进错误\"(IndentationError)。在Python中，函数定义后的代码块需要缩进（通常是4个空格）来表示属于该函数。就像写文章时，段落开头需要空两格一样，Python用缩进来区分代码的层级关系。\n\n**修正方法**：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加了4个空格的缩进\n```\n\n**规则口诀**：冒号后面要换行，代码块儿缩进4空格，层级关系要分明，Python靠它辨亲疏。",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型识别为缩进错误正确，但期望输出要点中提到的'元类定义中缩进问题'与实际代码不符，实际代码是普通函数定义的缩进错误，助手回答未涉及元类相关内容，可能是对期望要点的误解"
+          }
+        ]
+      },
+      "tokens_consumed": 0,
+      "cumulative_tokens": 416130
+    },
+    {
+      "phase": "Phase2.1",
+      "generation": 0,
+      "best_score": 0.9070000000000001,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.9070000000000001,
+          "error_detection": 0.85,
+          "educational_value": 0.8900000000000002,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "x = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # False，应该用 ==\n    print(\"Same\")",
+              "output": "1. 代码片段（标注错误位置）\n```python\nx = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # ❌ 错误位置：此处使用了is运算符\n    print(\"Same\")\n```\n\n2. 错误解释（说明错误原因和如何修正）\n错误原因：在Python中，`is`运算符检查两个变量是否引用**同一个对象**（内存地址相同），而`==`运算符检查两个对象的**值是否相等**。虽然x和y的值相同，但它们是两个独立的列表对象，内存地址不同。\n\n修正方法：将`is`改为`==`，即：\n```python\nif x == y:  # ✅ 正确使用==比较值相等\n    print(\"Same\")\n```\n\n💡 记忆口诀：\"is查身份，==比内容\"，比较值相等时用`==`，检查是否为同一个对象时才用`is`。",
+              "expected": "类型比较错误：nan",
+              "error_type": "logical",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "未提及nan相关的类型比较错误，与期望输出要点不符"
+            },
+            {
+              "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+              "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进\n^-- 错误位置：此处缺少缩进\n```\n\n2. 错误解释：这是\"缩进错误\"(IndentationError)。在Python中，函数定义后的代码块需要缩进（通常是4个空格）来表示属于该函数。就像写文章时，段落开头需要空两格一样，Python用缩进来区分代码的层级关系。\n\n**修正方法**：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加了4个空格的缩进\n```\n\n**规则口诀**：冒号后面要换行，代码块儿缩进4空格，层级关系要分明，Python靠它辨亲疏。",
+              "expected": "缩进错误：元类定义中缩进问题",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "错误类型识别为缩进错误正确，但期望输出要点中提到的'元类定义中缩进问题'与实际代码不符，实际代码是普通函数定义的缩进错误，助手回答未涉及元类相关内容，可能是对期望要点的误解"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 26.700000000000006,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "x = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # False，应该用 ==\n    print(\"Same\")",
+            "output": "1. 代码片段（标注错误位置）\n```python\nx = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # ❌ 错误位置：此处使用了is运算符\n    print(\"Same\")\n```\n\n2. 错误解释（说明错误原因和如何修正）\n错误原因：在Python中，`is`运算符检查两个变量是否引用**同一个对象**（内存地址相同），而`==`运算符检查两个对象的**值是否相等**。虽然x和y的值相同，但它们是两个独立的列表对象，内存地址不同。\n\n修正方法：将`is`改为`==`，即：\n```python\nif x == y:  # ✅ 正确使用==比较值相等\n    print(\"Same\")\n```\n\n💡 记忆口诀：\"is查身份，==比内容\"，比较值相等时用`==`，检查是否为同一个对象时才用`is`。",
+            "expected": "类型比较错误：nan",
+            "error_type": "logical",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "未提及nan相关的类型比较错误，与期望输出要点不符"
+          },
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进\n^-- 错误位置：此处缺少缩进\n```\n\n2. 错误解释：这是\"缩进错误\"(IndentationError)。在Python中，函数定义后的代码块需要缩进（通常是4个空格）来表示属于该函数。就像写文章时，段落开头需要空两格一样，Python用缩进来区分代码的层级关系。\n\n**修正方法**：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加了4个空格的缩进\n```\n\n**规则口诀**：冒号后面要换行，代码块儿缩进4空格，层级关系要分明，Python靠它辨亲疏。",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型识别为缩进错误正确，但期望输出要点中提到的'元类定义中缩进问题'与实际代码不符，实际代码是普通函数定义的缩进错误，助手回答未涉及元类相关内容，可能是对期望要点的误解"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "x = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # False，应该用 ==\n    print(\"Same\")",
+            "output": "1. 代码片段（标注错误位置）\n```python\nx = [1, 2, 3]\ny = [1, 2, 3]\nif x is y:  # ❌ 错误位置：此处使用了is运算符\n    print(\"Same\")\n```\n\n2. 错误解释（说明错误原因和如何修正）\n错误原因：在Python中，`is`运算符检查两个变量是否引用**同一个对象**（内存地址相同），而`==`运算符检查两个对象的**值是否相等**。虽然x和y的值相同，但它们是两个独立的列表对象，内存地址不同。\n\n修正方法：将`is`改为`==`，即：\n```python\nif x == y:  # ✅ 正确使用==比较值相等\n    print(\"Same\")\n```\n\n💡 记忆口诀：\"is查身份，==比内容\"，比较值相等时用`==`，检查是否为同一个对象时才用`is`。",
+            "expected": "类型比较错误：nan",
+            "error_type": "logical",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "未提及nan相关的类型比较错误，与期望输出要点不符"
+          },
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进\n^-- 错误位置：此处缺少缩进\n```\n\n2. 错误解释：这是\"缩进错误\"(IndentationError)。在Python中，函数定义后的代码块需要缩进（通常是4个空格）来表示属于该函数。就像写文章时，段落开头需要空两格一样，Python用缩进来区分代码的层级关系。\n\n**修正方法**：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加了4个空格的缩进\n```\n\n**规则口诀**：冒号后面要换行，代码块儿缩进4空格，层级关系要分明，Python靠它辨亲疏。",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型识别为缩进错误正确，但期望输出要点中提到的'元类定义中缩进问题'与实际代码不符，实际代码是普通函数定义的缩进错误，助手回答未涉及元类相关内容，可能是对期望要点的误解"
+          }
+        ]
+      },
+      "tokens_consumed": 0,
+      "cumulative_tokens": 416130
+    },
+    {
+      "phase": "Phase2.1",
+      "generation": 1,
+      "best_score": 0.0,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {},
+      "tokens_consumed": 0,
+      "cumulative_tokens": 416130
+    },
+    {
+      "phase": "Phase2.2",
+      "generation": 0,
+      "best_score": 0.908,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.908,
+          "error_detection": 0.85,
+          "educational_value": 0.8933333333333334,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+              "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进  <-- 错误位置：这行代码需要缩进\n```\n\n2. 错误解释：\n这是\"缩进错误\"(IndentationError)。在Python中，函数定义后需要用缩进来表示代码块范围，就像排队时要站在领队后面一样。\n\n修正方法：在print语句前添加4个空格（或1个Tab）的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加缩进后正确\n```\n\n记忆口诀：\"冒号后面要空格，代码块儿缩进它\" — 函数、条件、循环定义后接冒号，下一行代码必须缩进哦！",
+              "expected": "缩进错误：元类定义中缩进问题",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "错误类型标注为'syntax'不够精确，应为'IndentationError'；难度等级标注为'advanced'不合理，缩进错误属于基础语法错误，难度应为初级；未提及元类定义相关内容，但学生代码实际是普通函数缩进问题，期望输出要点可能存在偏差"
+            },
+            {
+              "input": "if condition  # 缺少冒号\n    do_something()",
+              "output": "1. 代码片段（标注错误位置）：\n```python\nif condition  # 缺少冒号 ❌\n    do_something()\n```\n\n2. 错误解释：\n这是一个语法错误，在Python中，if语句条件判断后必须添加冒号`:`作为代码块开始的标志。正确写法应该是：\n```python\nif condition:  # 添加冒号 ✅\n    do_something()\n```\n\n记忆口诀：\"条件之后有冒号，代码排队要对齐\"\n\n引导问题：你觉得为什么Python要强制要求在if后面加冒号呢？\n小提示：冒号就像\"任务开始\"的小旗帜，告诉Python接下来是一个代码块\n思考问题：如果忘记加冒号，Python解释器会显示什么错误信息呢？可以试试看哦~",
+              "expected": "冒号遗漏：模式匹配(case)中缺少冒号",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "助手回答中错误解释部分将冒号遗漏的场景限定为if语句，但期望输出要点指出是模式匹配(case)中缺少冒号，场景描述存在偏差"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 26.800000000000004,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进  <-- 错误位置：这行代码需要缩进\n```\n\n2. 错误解释：\n这是\"缩进错误\"(IndentationError)。在Python中，函数定义后需要用缩进来表示代码块范围，就像排队时要站在领队后面一样。\n\n修正方法：在print语句前添加4个空格（或1个Tab）的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加缩进后正确\n```\n\n记忆口诀：\"冒号后面要空格，代码块儿缩进它\" — 函数、条件、循环定义后接冒号，下一行代码必须缩进哦！",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型标注为'syntax'不够精确，应为'IndentationError'；难度等级标注为'advanced'不合理，缩进错误属于基础语法错误，难度应为初级；未提及元类定义相关内容，但学生代码实际是普通函数缩进问题，期望输出要点可能存在偏差"
+          },
+          {
+            "input": "if condition  # 缺少冒号\n    do_something()",
+            "output": "1. 代码片段（标注错误位置）：\n```python\nif condition  # 缺少冒号 ❌\n    do_something()\n```\n\n2. 错误解释：\n这是一个语法错误，在Python中，if语句条件判断后必须添加冒号`:`作为代码块开始的标志。正确写法应该是：\n```python\nif condition:  # 添加冒号 ✅\n    do_something()\n```\n\n记忆口诀：\"条件之后有冒号，代码排队要对齐\"\n\n引导问题：你觉得为什么Python要强制要求在if后面加冒号呢？\n小提示：冒号就像\"任务开始\"的小旗帜，告诉Python接下来是一个代码块\n思考问题：如果忘记加冒号，Python解释器会显示什么错误信息呢？可以试试看哦~",
+            "expected": "冒号遗漏：模式匹配(case)中缺少冒号",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "助手回答中错误解释部分将冒号遗漏的场景限定为if语句，但期望输出要点指出是模式匹配(case)中缺少冒号，场景描述存在偏差"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\nprint(\"indentation error\")  # 缺少缩进  <-- 错误位置：这行代码需要缩进\n```\n\n2. 错误解释：\n这是\"缩进错误\"(IndentationError)。在Python中，函数定义后需要用缩进来表示代码块范围，就像排队时要站在领队后面一样。\n\n修正方法：在print语句前添加4个空格（或1个Tab）的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 添加缩进后正确\n```\n\n记忆口诀：\"冒号后面要空格，代码块儿缩进它\" — 函数、条件、循环定义后接冒号，下一行代码必须缩进哦！",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误类型标注为'syntax'不够精确，应为'IndentationError'；难度等级标注为'advanced'不合理，缩进错误属于基础语法错误，难度应为初级；未提及元类定义相关内容，但学生代码实际是普通函数缩进问题，期望输出要点可能存在偏差"
+          },
+          {
+            "input": "if condition  # 缺少冒号\n    do_something()",
+            "output": "1. 代码片段（标注错误位置）：\n```python\nif condition  # 缺少冒号 ❌\n    do_something()\n```\n\n2. 错误解释：\n这是一个语法错误，在Python中，if语句条件判断后必须添加冒号`:`作为代码块开始的标志。正确写法应该是：\n```python\nif condition:  # 添加冒号 ✅\n    do_something()\n```\n\n记忆口诀：\"条件之后有冒号，代码排队要对齐\"\n\n引导问题：你觉得为什么Python要强制要求在if后面加冒号呢？\n小提示：冒号就像\"任务开始\"的小旗帜，告诉Python接下来是一个代码块\n思考问题：如果忘记加冒号，Python解释器会显示什么错误信息呢？可以试试看哦~",
+            "expected": "冒号遗漏：模式匹配(case)中缺少冒号",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "助手回答中错误解释部分将冒号遗漏的场景限定为if语句，但期望输出要点指出是模式匹配(case)中缺少冒号，场景描述存在偏差"
+          }
+        ]
+      },
+      "tokens_consumed": 122206,
+      "cumulative_tokens": 538336
+    },
+    {
+      "phase": "Phase2.2",
+      "generation": 1,
+      "best_score": 0.9189999999999999,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.9189999999999999,
+          "error_detection": 0.85,
+          "educational_value": 0.93,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+              "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+              "expected": "缩进错误：元类定义中缩进问题",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 27.900000000000002,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+          }
+        ]
+      },
+      "tokens_consumed": 76618,
+      "cumulative_tokens": 614954
+    },
+    {
+      "phase": "Phase3",
+      "generation": 0,
+      "best_score": 0.9189999999999999,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "metrics": {
+          "overall_score": 0.9189999999999999,
+          "error_detection": 0.85,
+          "educational_value": 0.93,
+          "format_compliance": 1.0,
+          "difficulty_adaptation": 1.0,
+          "error_samples": [
+            {
+              "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+              "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+              "expected": "缩进错误：元类定义中缩进问题",
+              "error_type": "syntax",
+              "difficulty": "advanced",
+              "score": 0.79,
+              "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+            }
+          ],
+          "stats": {
+            "syntax_correct": 9,
+            "runtime_correct": 11,
+            "logical_correct": 10,
+            "conceptual_correct": 0,
+            "beginner_correct": 10,
+            "intermediate_correct": 11,
+            "advanced_correct": 9,
+            "format_correct": 30,
+            "educational_value_sum": 27.900000000000002,
+            "total": 30
+          }
+        },
+        "perf_vector": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "fp_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+          }
+        ],
+        "error_samples": [
+          {
+            "input": "def example():\nprint(\"indentation error\")  # 缺少缩进",
+            "output": "1. 代码片段（标注错误位置）：\n```python\ndef example():\n→print(\"indentation error\")  # 缺少缩进\n```\n\n2. 错误解释：\n这是典型的缩进错误。在Python中，函数定义后的代码块必须缩进（通常为4个空格），以表示代码层次结构。\n\n修正方法：在print语句前添加4个空格的缩进：\n```python\ndef example():\n    print(\"indentation error\")  # 已添加正确缩进\n```\n\n规则口诀：\"冒号后换行，层级对齐要分明，函数/条件/循环体，缩进一致是规矩\"\n\n思考问题：如果函数体中有多行代码，它们的缩进应该保持怎样的关系？（提示：同一代码块中的所有行应保持相同缩进量）",
+            "expected": "缩进错误：元类定义中缩进问题",
+            "error_type": "syntax",
+            "difficulty": "advanced",
+            "score": 0.79,
+            "reason": "错误解释中未提及“元类定义”相关内容，与期望输出要点中的“缩进错误：元类定义中缩进问题”不匹配"
+          }
+        ]
+      },
+      "tokens_consumed": 0,
+      "cumulative_tokens": 614954
+    }
+  ],
+  "token_usage": {
+    "consumed": 614954,
+    "budget": 999999999,
+    "usage_ratio": 0.000614954000614954,
+    "llm_calls": 875
+  },
+  "config": {
+    "total_generations": 10,
+    "population_size": 6,
+    "max_tokens": 999999999,
+    "precision_weight": 0.7,
+    "recall_weight": 0.3,
+    "eval_set_size": 30,
+    "fp_pool_size": 100,
+    "min_precision": 0.85,
+    "conservative_threshold": 0.9,
+    "must_include_fp": true,
+    "fp_ratio": 0.6,
+    "max_workers": 1
+  },
+  "test_data_info": {
+    "total_samples": 30,
+    "syntax_errors": 9,
+    "runtime_errors": 11,
+    "logical_errors": 10,
+    "conceptual_errors": 0,
+    "beginner_level": 10,
+    "intermediate_level": 11,
+    "advanced_level": 9
+  }
+}
