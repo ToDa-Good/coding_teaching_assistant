@@ -29,6 +29,7 @@ npm run dev            # 默认 http://localhost:8787
 ```bash
 cd frontend
 npm i
+npm install react-markdown remark-gfm rehype-highlight
 npm run dev            # 默认 http://localhost:5173
 ```
 
