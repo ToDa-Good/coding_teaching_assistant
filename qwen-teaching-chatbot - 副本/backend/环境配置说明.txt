@@ -1,0 +1,27 @@
+需要在 backend 目录下创建 .env 文件
+
+内容如下：
+=====================================
+
+# OpenAI API 配置（Qwen兼容模式）
+OPENAI_API_KEY=你的API密钥
+OPENAI_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+
+# Qwen 模型
+QWEN_MODEL=qwen-plus
+
+# 服务器端口
+PORT=8787
+
+=====================================
+
+说明：
+1. 将上面的内容保存为 .env 文件（注意文件名以点开头）
+2. 替换 OPENAI_API_KEY 为你的实际API密钥
+3. 如果使用其他API服务，修改 OPENAI_BASE_URL
+4. 保存后重新启动服务器
+
+创建方法：
+- Windows: 在backend目录下，右键 -> 新建 -> 文本文档 -> 重命名为 .env
+- 或使用命令: echo. > .env
+

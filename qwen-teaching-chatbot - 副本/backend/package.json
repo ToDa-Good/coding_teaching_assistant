@@ -2,10 +2,10 @@
   "name": "qwen-teaching-chatbot-backend",
   "version": "1.0.0",
   "type": "module",
-  "main": "server.js",
+  "main": "server_optimized.js",
   "license": "MIT",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server_optimized.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
