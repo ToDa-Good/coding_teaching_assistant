@@ -1,0 +1,4685 @@
+{
+  "timestamp": "20251106_143804",
+  "method": "PhaseEvo + Autoprompt (Error Generation)",
+  "optimized_prompt": "你是Python教学内容设计师，专注于生成高教学价值的错误代码，帮助学习者通过识别和修复错误深化对核心概念的理解。\n\n【教学价值评估】\n高价值错误：\n- 揭示重要概念（如：函数可变默认参数在多次调用中共享状态、闭包中的迟绑定导致变量引用异常）\n- 常见但易被忽视（如：列表推导式中的变量作用域陷阱、整数除法与浮点数除法混淆）\n- 修复过程有学习收获（如：修复时需理解__init__与__new__的区别、深拷贝vs浅拷贝的影响）\n\n中价值错误：\n- 常见但相对简单（如：列表索引越界（访问list[len(list)]）、错误的类型转换（int(\"abc\")）\n- 有一定学习意义（如：循环中修改迭代对象导致跳过元素、字典键不存在时直接访问）\n\n低价值错误：\n- 过于简单或罕见（如：变量名拼写错误（将print写成pritn）、多余的冒号或括号）\n- 学习意义不大（如：末尾多余空格、注释符号错误（用//代替#））\n\n【错误类型与教学概念对应】\n轻微-语法错误：涉及Python基础语法规则，如缩进错误（不一致的空格/制表符）、缺少冒号（if/for/def后）、括号不匹配（圆括号/方括号/花括号未闭合）\n中等-逻辑错误：涉及程序执行逻辑，如作用域问题（局部变量与全局变量混淆）、循环控制错误（错误的break/continue位置）、条件判断失误（使用=代替==）\n严重-内容错误：涉及核心概念理解，如异常处理缺失（未捕获可能的异常）、类型错误（字符串与数字运算）、数据结构误用（集合作为字典键）\n\n【生成策略】\n1. 优先选择能揭示Python核心概念（如作用域、闭包、可变/不可变对象）的高价值错误\n2. 代码需模拟学习者常犯的“看似正确”的错误，如逻辑上合理但存在隐藏陷阱（例：表面是独立调用，实际共享状态）\n3. 错误需具有代表性，覆盖不同难度等级，优先匹配中等及以上学习阶段的易错点\n\n【输出规范】\n严格生成JSON格式，包含以下字段：\n- code：5-15行Python代码，必须包含中文注释说明代码意图\n- tip：≤50字提示，需点明错误类型（轻微-语法/中等-逻辑/严重-内容）和核心问题位置\n\n输出样例：\n{\n    \"code\": \"def add_item(item, items=[]):\n    items.append(item)  # 错误：使用可变默认参数\n    return items\n\n# 测试调用\nprint(add_item(1))  # 预期 [1]，实际 [1]\nprint(add_item(2))  # 预期 [2]，实际 [1, 2]\",\n    \"tip\": \"严重-内容错误：函数使用可变默认参数（列表），导致多次调用共享状态\"\n}",
+  "score": 0.8366666666666669,
+  "metrics": {
+    "avg_score": 0.8366666666666669,
+    "results": [
+      {
+        "level": "轻微",
+        "type": "语法错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 233,
+          "tip_length": 28,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "语法错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 227,
+          "tip_length": 28,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "逻辑错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 219,
+          "tip_length": 25,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "逻辑错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 262,
+          "tip_length": 43,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "内容错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 208,
+          "tip_length": 28,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name\n        \n    def greet(self):\n ...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "内容错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 225,
+          "tip_length": 27,
+          "educational_score": 0.8450000000000001,
+          "runnable": true,
+          "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name  # 初始化姓名属性\n        \n    def gre...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "语法错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 217,
+          "tip_length": 30,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "语法错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 215,
+          "tip_length": 28,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0\n...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "逻辑错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 241,
+          "tip_length": 42,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "def remove_duplicates(numbers):\n    for num in numbers:  # 错误：循环中修改迭代对象\n        if numbers.count(num...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "逻辑错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 225,
+          "tip_length": 33,
+          "educational_score": 0.8450000000000001,
+          "runnable": false,
+          "code_preview": "def count_even_numbers(numbers):\n    count = 0\n    for num in numbers:\n        if num % 2 == 0:\n    ...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "内容错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 211,
+          "tip_length": 35,
+          "educational_score": 0.8450000000000001,
+          "runnable": true,
+          "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "内容错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 214,
+          "tip_length": 26,
+          "educational_score": 0.8450000000000001,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "语法错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 217,
+          "tip_length": 37,
+          "educational_score": 0.83,
+          "runnable": true,
+          "code_preview": "class MyClass:\n    def __init__(self, value):\n        self.value = value\n    \n    @property\n    def ...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "语法错误",
+        "score": 0.83,
+        "details": {
+          "format_correct": true,
+          "code_length": 224,
+          "tip_length": 39,
+          "educational_score": 0.83,
+          "runnable": false,
+          "code_preview": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n   ...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.8,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "逻辑错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 210,
+          "tip_length": 40,
+          "educational_score": 0.8450000000000001,
+          "runnable": true,
+          "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(4)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "逻辑错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 210,
+          "tip_length": 41,
+          "educational_score": 0.8450000000000001,
+          "runnable": true,
+          "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(5)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "内容错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 213,
+          "tip_length": 35,
+          "educational_score": 0.8450000000000001,
+          "runnable": true,
+          "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "内容错误",
+        "score": 0.8450000000000001,
+        "details": {
+          "format_correct": true,
+          "code_length": 213,
+          "tip_length": 35,
+          "educational_score": 0.8450000000000001,
+          "runnable": true,
+          "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.9,
+            "educational": 0.85,
+            "tip_quality": 0.8,
+            "level_match": 0.9
+          }
+        }
+      }
+    ],
+    "stats": {
+      "total": 18,
+      "by_level": {
+        "轻微": 6,
+        "中等": 6,
+        "严重": 6
+      },
+      "by_type": {
+        "语法错误": 6,
+        "逻辑错误": 6,
+        "内容错误": 6
+      },
+      "quality_scores": [
+        0.83,
+        0.83,
+        0.83,
+        0.83,
+        0.83,
+        0.8450000000000001,
+        0.83,
+        0.83,
+        0.83,
+        0.8450000000000001,
+        0.8450000000000001,
+        0.8450000000000001,
+        0.83,
+        0.83,
+        0.8450000000000001,
+        0.8450000000000001,
+        0.8450000000000001,
+        0.8450000000000001
+      ],
+      "format_correct": 18,
+      "runnable": 16,
+      "educational_value": 18
+    },
+    "metrics": {
+      "quality": 0.8366666666666669,
+      "format_rate": 1.0,
+      "runnable_rate": 0.8888888888888888,
+      "educational_rate": 1.0,
+      "dimensions": {
+        "typicality": 0.8,
+        "conciseness": 0.8999999999999999,
+        "educational": 0.8222222222222223,
+        "tip_quality": 0.8,
+        "level_match": 0.8999999999999999
+      }
+    }
+  },
+  "optimization_history": [
+    {
+      "phase": "Phase0",
+      "generation": 0,
+      "best_score": 0.8341666666666668,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8341666666666668,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 20,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    # 计算平均值\n    if...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 235,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 计算平...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 21,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 29,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算平均值，处理空列表情况\n    if not numbers:\n        return 0\n    return ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 275,
+              "tip_length": 44,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    # 除以元素总数得到平均值\n    r...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 19,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 40,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 176,
+              "tip_length": 31,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 没有考...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 180,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 忘记处...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 43,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 48,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 204,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    if not numbers\n        return 0  # 如果列表为空，返回...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 236,
+              "tip_length": 24,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    count = len(numbers...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 156,
+              "tip_length": 34,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def process_data(data=[]):\n    # 向默认列表添加数据\n    data.append(1)\n    return data\n\n# 测试函数\nprint(process_...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 194,
+              "tip_length": 37,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def add_student(name, courses=[]):\n    # 将学生添加到课程列表\n    courses.append(name)\n    return courses\n\n# 添...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 163,
+              "tip_length": 29,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_path):\n    # 尝试读取配置文件\n    with open(config_path, 'r') as f:\n        return f....",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 177,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_file='config.ini'):\n    # 读取配置文件并返回内容\n    with open(config_file, 'r') as f:\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 18,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8341666666666668,
+          "format_rate": 1.0,
+          "runnable_rate": 1.0,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8138888888888889,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 34200,
+      "cumulative_tokens": 57114
+    },
+    {
+      "phase": "Phase0",
+      "generation": 1,
+      "best_score": 0.8341666666666668,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8341666666666668,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 20,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    # 计算平均值\n    if...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 235,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 计算平...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 21,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 29,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算平均值，处理空列表情况\n    if not numbers:\n        return 0\n    return ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 275,
+              "tip_length": 44,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    # 除以元素总数得到平均值\n    r...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 19,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 40,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 176,
+              "tip_length": 31,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 没有考...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 180,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 忘记处...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 43,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 48,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 204,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    if not numbers\n        return 0  # 如果列表为空，返回...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 236,
+              "tip_length": 24,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    count = len(numbers...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 156,
+              "tip_length": 34,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def process_data(data=[]):\n    # 向默认列表添加数据\n    data.append(1)\n    return data\n\n# 测试函数\nprint(process_...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 194,
+              "tip_length": 37,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def add_student(name, courses=[]):\n    # 将学生添加到课程列表\n    courses.append(name)\n    return courses\n\n# 添...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 163,
+              "tip_length": 29,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_path):\n    # 尝试读取配置文件\n    with open(config_path, 'r') as f:\n        return f....",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 177,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_file='config.ini'):\n    # 读取配置文件并返回内容\n    with open(config_file, 'r') as f:\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 18,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8341666666666668,
+          "format_rate": 1.0,
+          "runnable_rate": 1.0,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8138888888888889,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 4302,
+      "cumulative_tokens": 61416
+    },
+    {
+      "phase": "Phase0",
+      "generation": 2,
+      "best_score": 0.8341666666666668,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8341666666666668,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 20,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    # 计算平均值\n    if...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 235,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 计算平...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 21,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 29,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算平均值，处理空列表情况\n    if not numbers:\n        return 0\n    return ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 275,
+              "tip_length": 44,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    # 除以元素总数得到平均值\n    r...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 19,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 40,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 176,
+              "tip_length": 31,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 没有考...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 180,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 忘记处...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 43,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 48,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 204,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    if not numbers\n        return 0  # 如果列表为空，返回...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 236,
+              "tip_length": 24,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    count = len(numbers...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 156,
+              "tip_length": 34,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def process_data(data=[]):\n    # 向默认列表添加数据\n    data.append(1)\n    return data\n\n# 测试函数\nprint(process_...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 194,
+              "tip_length": 37,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def add_student(name, courses=[]):\n    # 将学生添加到课程列表\n    courses.append(name)\n    return courses\n\n# 添...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 163,
+              "tip_length": 29,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_path):\n    # 尝试读取配置文件\n    with open(config_path, 'r') as f:\n        return f....",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 177,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_file='config.ini'):\n    # 读取配置文件并返回内容\n    with open(config_file, 'r') as f:\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 18,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8341666666666668,
+          "format_rate": 1.0,
+          "runnable_rate": 1.0,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8138888888888889,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 19368,
+      "cumulative_tokens": 80784
+    },
+    {
+      "phase": "Phase1",
+      "generation": 0,
+      "best_score": 0.8341666666666668,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8341666666666668,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 20,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    # 计算平均值\n    if...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 235,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 计算平...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 21,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 29,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算平均值，处理空列表情况\n    if not numbers:\n        return 0\n    return ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 275,
+              "tip_length": 44,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    # 除以元素总数得到平均值\n    r...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 222,
+              "tip_length": 19,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 200,
+              "tip_length": 40,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 176,
+              "tip_length": 31,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 没有考...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 180,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 忘记处...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 43,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 192,
+              "tip_length": 48,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = 0\n    for num in numbers:\n        to...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 204,
+              "tip_length": 22,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    if not numbers\n        return 0  # 如果列表为空，返回...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 236,
+              "tip_length": 24,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    # 计算列表中所有数字的平均值\n    total = sum(numbers)\n    count = len(numbers...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 156,
+              "tip_length": 34,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def process_data(data=[]):\n    # 向默认列表添加数据\n    data.append(1)\n    return data\n\n# 测试函数\nprint(process_...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 194,
+              "tip_length": 37,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def add_student(name, courses=[]):\n    # 将学生添加到课程列表\n    courses.append(name)\n    return courses\n\n# 添...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 163,
+              "tip_length": 29,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_path):\n    # 尝试读取配置文件\n    with open(config_path, 'r') as f:\n        return f....",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 177,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def read_config(config_file='config.ini'):\n    # 读取配置文件并返回内容\n    with open(config_file, 'r') as f:\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 18,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8341666666666668,
+          "format_rate": 1.0,
+          "runnable_rate": 1.0,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8138888888888889,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 8712,
+      "cumulative_tokens": 89496
+    },
+    {
+      "phase": "Phase1",
+      "generation": 1,
+      "best_score": 0.8366666666666669,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8366666666666669,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 233,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 227,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 25,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 262,
+              "tip_length": 43,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 208,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name\n        \n    def greet(self):\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 27,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name  # 初始化姓名属性\n        \n    def gre...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 30,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 215,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 241,
+              "tip_length": 42,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def remove_duplicates(numbers):\n    for num in numbers:  # 错误：循环中修改迭代对象\n        if numbers.count(num...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 33,
+              "educational_score": 0.8450000000000001,
+              "runnable": false,
+              "code_preview": "def count_even_numbers(numbers):\n    count = 0\n    for num in numbers:\n        if num % 2 == 0:\n    ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 214,
+              "tip_length": 26,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class MyClass:\n    def __init__(self, value):\n        self.value = value\n    \n    @property\n    def ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 224,
+              "tip_length": 39,
+              "educational_score": 0.83,
+              "runnable": false,
+              "code_preview": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n   ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 40,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(4)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 41,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(5)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 16,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8366666666666669,
+          "format_rate": 1.0,
+          "runnable_rate": 0.8888888888888888,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8222222222222223,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 53874,
+      "cumulative_tokens": 143370
+    },
+    {
+      "phase": "Phase2.1",
+      "generation": 0,
+      "best_score": 0.8366666666666669,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8366666666666669,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 233,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 227,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 25,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 262,
+              "tip_length": 43,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 208,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name\n        \n    def greet(self):\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 27,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name  # 初始化姓名属性\n        \n    def gre...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 30,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 215,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 241,
+              "tip_length": 42,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def remove_duplicates(numbers):\n    for num in numbers:  # 错误：循环中修改迭代对象\n        if numbers.count(num...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 33,
+              "educational_score": 0.8450000000000001,
+              "runnable": false,
+              "code_preview": "def count_even_numbers(numbers):\n    count = 0\n    for num in numbers:\n        if num % 2 == 0:\n    ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 214,
+              "tip_length": 26,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class MyClass:\n    def __init__(self, value):\n        self.value = value\n    \n    @property\n    def ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 224,
+              "tip_length": 39,
+              "educational_score": 0.83,
+              "runnable": false,
+              "code_preview": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n   ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 40,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(4)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 41,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(5)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 16,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8366666666666669,
+          "format_rate": 1.0,
+          "runnable_rate": 0.8888888888888888,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8222222222222223,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 19854,
+      "cumulative_tokens": 163224
+    },
+    {
+      "phase": "Phase2.1",
+      "generation": 1,
+      "best_score": 0.8366666666666669,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8366666666666669,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 233,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 227,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 25,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 262,
+              "tip_length": 43,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 208,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name\n        \n    def greet(self):\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 27,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name  # 初始化姓名属性\n        \n    def gre...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 30,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 215,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 241,
+              "tip_length": 42,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def remove_duplicates(numbers):\n    for num in numbers:  # 错误：循环中修改迭代对象\n        if numbers.count(num...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 33,
+              "educational_score": 0.8450000000000001,
+              "runnable": false,
+              "code_preview": "def count_even_numbers(numbers):\n    count = 0\n    for num in numbers:\n        if num % 2 == 0:\n    ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 214,
+              "tip_length": 26,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class MyClass:\n    def __init__(self, value):\n        self.value = value\n    \n    @property\n    def ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 224,
+              "tip_length": 39,
+              "educational_score": 0.83,
+              "runnable": false,
+              "code_preview": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n   ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 40,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(4)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 41,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(5)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 16,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8366666666666669,
+          "format_rate": 1.0,
+          "runnable_rate": 0.8888888888888888,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8222222222222223,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 20466,
+      "cumulative_tokens": 183690
+    },
+    {
+      "phase": "Phase2.2",
+      "generation": 0,
+      "best_score": 0.8366666666666669,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8366666666666669,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 233,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 227,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 25,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 262,
+              "tip_length": 43,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 208,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name\n        \n    def greet(self):\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 27,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name  # 初始化姓名属性\n        \n    def gre...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 30,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 215,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 241,
+              "tip_length": 42,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def remove_duplicates(numbers):\n    for num in numbers:  # 错误：循环中修改迭代对象\n        if numbers.count(num...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 33,
+              "educational_score": 0.8450000000000001,
+              "runnable": false,
+              "code_preview": "def count_even_numbers(numbers):\n    count = 0\n    for num in numbers:\n        if num % 2 == 0:\n    ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 214,
+              "tip_length": 26,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class MyClass:\n    def __init__(self, value):\n        self.value = value\n    \n    @property\n    def ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 224,
+              "tip_length": 39,
+              "educational_score": 0.83,
+              "runnable": false,
+              "code_preview": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n   ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 40,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(4)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 41,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(5)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 16,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8366666666666669,
+          "format_rate": 1.0,
+          "runnable_rate": 0.8888888888888888,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8222222222222223,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 65897,
+      "cumulative_tokens": 249587
+    },
+    {
+      "phase": "Phase2.2",
+      "generation": 1,
+      "best_score": 0.8366666666666669,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8366666666666669,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 233,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 227,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 25,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 262,
+              "tip_length": 43,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 208,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name\n        \n    def greet(self):\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 27,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name  # 初始化姓名属性\n        \n    def gre...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 30,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 215,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 241,
+              "tip_length": 42,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def remove_duplicates(numbers):\n    for num in numbers:  # 错误：循环中修改迭代对象\n        if numbers.count(num...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 33,
+              "educational_score": 0.8450000000000001,
+              "runnable": false,
+              "code_preview": "def count_even_numbers(numbers):\n    count = 0\n    for num in numbers:\n        if num % 2 == 0:\n    ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 214,
+              "tip_length": 26,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class MyClass:\n    def __init__(self, value):\n        self.value = value\n    \n    @property\n    def ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 224,
+              "tip_length": 39,
+              "educational_score": 0.83,
+              "runnable": false,
+              "code_preview": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n   ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 40,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(4)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 41,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(5)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 16,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8366666666666669,
+          "format_rate": 1.0,
+          "runnable_rate": 0.8888888888888888,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8222222222222223,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 46958,
+      "cumulative_tokens": 296545
+    },
+    {
+      "phase": "Phase3",
+      "generation": 0,
+      "best_score": 0.8366666666666669,
+      "population_size": 6,
+      "offspring_size": 6,
+      "best_metrics": {
+        "avg_score": 0.8366666666666669,
+        "results": [
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 233,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 227,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0:...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 219,
+              "tip_length": 25,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 262,
+              "tip_length": 43,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    count = 0\n    for num in numbers:\n        total +=...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 208,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name\n        \n    def greet(self):\n ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "轻微",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 27,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Person:\n    def __init__(self, name):\n        self.name = name  # 初始化姓名属性\n        \n    def gre...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 30,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers\n        total += num  # 累加所有数字\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 215,
+              "tip_length": 28,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    count = len(numbers)\n    if count == 0\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 241,
+              "tip_length": 42,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "def remove_duplicates(numbers):\n    for num in numbers:  # 错误：循环中修改迭代对象\n        if numbers.count(num...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 225,
+              "tip_length": 33,
+              "educational_score": 0.8450000000000001,
+              "runnable": false,
+              "code_preview": "def count_even_numbers(numbers):\n    count = 0\n    for num in numbers:\n        if num % 2 == 0:\n    ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 211,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "中等",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 214,
+              "tip_length": 26,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    # 错误：...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 217,
+              "tip_length": 37,
+              "educational_score": 0.83,
+              "runnable": true,
+              "code_preview": "class MyClass:\n    def __init__(self, value):\n        self.value = value\n    \n    @property\n    def ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "语法错误",
+            "score": 0.83,
+            "details": {
+              "format_correct": true,
+              "code_length": 224,
+              "tip_length": 39,
+              "educational_score": 0.83,
+              "runnable": false,
+              "code_preview": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n   ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.8,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 40,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(4)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "逻辑错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 210,
+              "tip_length": 41,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "def create_multipliers():\n    return [lambda x: i * x for i in range(5)]  # 错误：闭包中的迟绑定问题\n\n# 测试每个乘法器\n...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          },
+          {
+            "level": "严重",
+            "type": "内容错误",
+            "score": 0.8450000000000001,
+            "details": {
+              "format_correct": true,
+              "code_length": 213,
+              "tip_length": 35,
+              "educational_score": 0.8450000000000001,
+              "runnable": true,
+              "code_preview": "class Counter:\n    count = 0  # 错误：使用类变量而非实例变量\n    \n    def __init__(self):\n        self.count += 1 ...",
+              "dimensions": {
+                "typicality": 0.8,
+                "conciseness": 0.9,
+                "educational": 0.85,
+                "tip_quality": 0.8,
+                "level_match": 0.9
+              }
+            }
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "by_level": {
+            "轻微": 6,
+            "中等": 6,
+            "严重": 6
+          },
+          "by_type": {
+            "语法错误": 6,
+            "逻辑错误": 6,
+            "内容错误": 6
+          },
+          "quality_scores": [
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.83,
+            0.83,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001,
+            0.8450000000000001
+          ],
+          "format_correct": 18,
+          "runnable": 16,
+          "educational_value": 18
+        },
+        "metrics": {
+          "quality": 0.8366666666666669,
+          "format_rate": 1.0,
+          "runnable_rate": 0.8888888888888888,
+          "educational_rate": 1.0,
+          "dimensions": {
+            "typicality": 0.8,
+            "conciseness": 0.8999999999999999,
+            "educational": 0.8222222222222223,
+            "tip_quality": 0.8,
+            "level_match": 0.8999999999999999
+          }
+        }
+      },
+      "tokens_consumed": 41292,
+      "cumulative_tokens": 337837
+    }
+  ],
+  "token_usage": {
+    "consumed": 337837,
+    "budget": 999999999,
+    "usage_ratio": 0.000337837000337837,
+    "llm_calls": 691
+  },
+  "config": {
+    "total_generations": 8,
+    "population_size": 6,
+    "max_tokens": 999999999,
+    "precision_weight": 0.7,
+    "recall_weight": 0.3,
+    "eval_set_size": 18,
+    "fp_pool_size": 50,
+    "min_precision": 0.8,
+    "conservative_threshold": 0.9,
+    "must_include_fp": true,
+    "fp_ratio": 0.6,
+    "max_workers": 1
+  },
+  "test_data_info": {
+    "total_samples": 18,
+    "level_distribution": {
+      "轻微": 6,
+      "中等": 6,
+      "严重": 6
+    },
+    "type_distribution": {
+      "语法错误": 6,
+      "逻辑错误": 6,
+      "内容错误": 6
+    }
+  }
+}

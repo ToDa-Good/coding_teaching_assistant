@@ -1,0 +1,454 @@
+{
+  "timestamp": "20251106_113803",
+  "method": "PhaseEvo + Autoprompt (Error Generation)",
+  "optimized_prompt": "你是一名资深Python教学专家，专门设计教学用错误代码案例。\n\n【核心原则】\n1. 错误必须典型且有教学价值\n2. 代码简洁（5-15行），聚焦单一错误点\n3. 包含中文注释，说明代码意图\n4. 错误要符合学生真实编程场景\n\n【错误等级标准】\n- 轻微：初学者常犯，易发现（如缩进、拼写）\n- 中等：需要理解概念才能发现（如变量作用域、类型转换）\n- 严重：涉及逻辑错误或运行时异常（如死循环、除零）\n\n【错误类型要求】\n- 语法错误：违反Python语法规则，无法运行\n- 逻辑错误：语法正确但结果错误（如边界条件、算法逻辑）\n- 内容错误：运行时异常（如类型错误、除零、索引越界）\n\n【输出格式】\n严格JSON: {\"code\": \"完整Python代码\", \"tip\": \"≤50字提示\"}\ntip格式：\"这是一个[等级][类型]，关注[具体位置/概念]\"\n\n【示例】\n轻微语法错误：\n{\"code\": \"def hello()\\n    print('Hello')  # 缺少冒号\", \"tip\": \"这是一个轻微语法错误，函数定义缺少冒号\"}",
+  "score": 1.0,
+  "metrics": {
+    "avg_score": 1.0,
+    "results": [
+      {
+        "level": "轻微",
+        "type": "语法错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 42,
+          "tip_length": 22,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "for i in range(5)\n    print(i)  # 循环语句缺少冒号",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "语法错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 42,
+          "tip_length": 22,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "for i in range(5)\n    print(i)  # 循环语句缺少冒号",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "逻辑错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 141,
+          "tip_length": 24,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def sum_numbers(n):\n    total = 0\n    for i in range(1, n):  # 本应包含n\n        total += i\n    return t...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "逻辑错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 114,
+          "tip_length": 25,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "# 计算1到n的和\nn = 5\nsum_result = 0\nfor i in range(1, n):  # 循环范围错误\n    sum_result += i\nprint(f'1到{n}的和是：...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "内容错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 53,
+          "tip_length": 19,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "numbers = [1, 2, 3]\nprint(numbers[3])  # 尝试访问列表的第4个元素",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "轻微",
+        "type": "内容错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 53,
+          "tip_length": 19,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "numbers = [1, 2, 3]\nprint(numbers[3])  # 尝试访问列表的第4个元素",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "语法错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 43,
+          "tip_length": 23,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "for i in range(5)\n    print(i)  # 循环语句后缺少冒号",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "语法错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 42,
+          "tip_length": 22,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "for i in range(5)\n    print(i)  # 循环语句缺少冒号",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "逻辑错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 172,
+          "tip_length": 23,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = 0\n    for num in numbers:\n        total += num\n    retur...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "逻辑错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 126,
+          "tip_length": 25,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "# 计算1到n的和\nn = 5\nsum_result = 0\nfor i in range(1, n):  # 循环范围错误\n    sum_result += i\nprint(f'1到{n}的和是{...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "内容错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 153,
+          "tip_length": 20,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)  # 计算平均值\n\n#...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "中等",
+        "type": "内容错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 156,
+          "tip_length": 22,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)  # 未处理空列表情况...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "语法错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 69,
+          "tip_length": 28,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "for i in range(10)\n    if i % 2 == 0\n        print(i)  # 循环和条件语句都缺少冒号",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "语法错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 61,
+          "tip_length": 24,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "for i in range(10)\n    if i % 2 == 0\n        print(i)  # 偶数打印",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "逻辑错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 197,
+          "tip_length": 21,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def find_max(numbers):\n    max_num = numbers[0]  # 初始最大值\n    for num in numbers:\n        if num > ma...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "逻辑错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 198,
+          "tip_length": 23,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def find_max(numbers):\n    max_num = numbers[0]  # 初始最大值\n    for num in numbers:\n        if num > ma...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "内容错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 160,
+          "tip_length": 22,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)  # 空列表会导致除零...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      },
+      {
+        "level": "严重",
+        "type": "内容错误",
+        "score": 1.0,
+        "details": {
+          "format_correct": true,
+          "code_length": 168,
+          "tip_length": 20,
+          "educational_score": 1.0,
+          "runnable": true,
+          "code_preview": "def calculate_average(numbers):\n    total = sum(numbers)\n    return total / len(numbers)  # 处理空列表会出错...",
+          "dimensions": {
+            "typicality": 1.0,
+            "conciseness": 1.0,
+            "educational": 1.0,
+            "tip_quality": 1.0,
+            "level_match": 1.0
+          }
+        }
+      }
+    ],
+    "stats": {
+      "total": 18,
+      "by_level": {
+        "轻微": 6,
+        "中等": 6,
+        "严重": 6
+      },
+      "by_type": {
+        "语法错误": 6,
+        "逻辑错误": 6,
+        "内容错误": 6
+      },
+      "quality_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "format_correct": 18,
+      "runnable": 18,
+      "educational_value": 18
+    },
+    "metrics": {
+      "quality": 1.0,
+      "format_rate": 1.0,
+      "runnable_rate": 1.0,
+      "educational_rate": 1.0,
+      "dimensions": {
+        "typicality": 1.0,
+        "conciseness": 1.0,
+        "educational": 1.0,
+        "tip_quality": 1.0,
+        "level_match": 1.0
+      }
+    }
+  },
+  "optimization_history": [],
+  "token_usage": {
+    "consumed": 22914,
+    "budget": 999999999,
+    "usage_ratio": 2.2914000022914e-05,
+    "llm_calls": 108
+  },
+  "config": {
+    "total_generations": 8,
+    "population_size": 6,
+    "max_tokens": 999999999,
+    "precision_weight": 0.7,
+    "recall_weight": 0.3,
+    "eval_set_size": 18,
+    "fp_pool_size": 50,
+    "min_precision": 0.8,
+    "conservative_threshold": 0.9,
+    "must_include_fp": true,
+    "fp_ratio": 0.6,
+    "max_workers": 1
+  },
+  "test_data_info": {
+    "total_samples": 18,
+    "level_distribution": {
+      "轻微": 6,
+      "中等": 6,
+      "严重": 6
+    },
+    "type_distribution": {
+      "语法错误": 6,
+      "逻辑错误": 6,
+      "内容错误": 6
+    }
+  }
+}
