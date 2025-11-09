@@ -51,6 +51,31 @@ export default function App() {
     }
   };
 
+  // 分析代码功能
+  const analyzeCode = async () => {
+    setBusy(true);
+    try {
+      const resp = await fetch("http://localhost:8787/api/analyze-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code })
+      });
+      if (!resp.ok) throw new Error(resp.statusText);
+      const data = await resp.json();
+
+      let msg = "";
+      if (data.runtimeError) msg += `运行错误:\n${data.runtimeError}\n\n`;
+      if (data.output) msg += `输出结果:\n${data.output}\n\n`;
+      if (data.analysis) msg += `代码分析:\n${data.analysis}`;
+
+      setMessages((m) => [...m, { role: "assistant", content: msg }]);
+    } catch (e: any) {
+      setMessages((m) => [...m, { role: "assistant", content: "分析出错：" + e.message }]);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   // 发送聊天消息
   const send = async () => {
     if (!input.trim()) return;
@@ -63,7 +88,7 @@ export default function App() {
       const resp = await fetch("http://localhost:8787/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: nextMsgs, max_tokens: 500 }) // 限制500字
+        body: JSON.stringify({ messages: nextMsgs, max_tokens: 500 })
       });
       if (!resp.ok) throw new Error(resp.statusText);
 
@@ -103,54 +128,25 @@ export default function App() {
   };
 
   // 生成错误代码
-const generateErrorCode = async () => {
-  setBusy(true);
-  try {
-    const resp = await fetch("http://localhost:8787/api/generate-error", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ level: errorLevel, type: errorType })
-    });
-    if (!resp.ok) throw new Error(resp.statusText);
+  const generateErrorCode = async () => {
+    setBusy(true);
+    try {
+      const resp = await fetch("http://localhost:8787/api/generate-error", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ level: errorLevel, type: errorType })
+      });
+      if (!resp.ok) throw new Error(resp.statusText);
 
-    const reader = resp.body!.getReader();
-    const decoder = new TextDecoder();
-    let buffer = "";
-    let codeContent = "";
-    let tipContent = "";
-
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
-
-      const lines = buffer.split("\n").filter(Boolean);
-      for (const line of lines) {
-        try {
-          const obj = JSON.parse(line);
-          if (obj.code) {
-            // 去掉 ```python
-            codeContent = obj.code.replace(/^```(python)?\n?|```$/g, "");
-          }
-          if (obj.tip) {
-            tipContent = obj.tip; // 提示单独记录
-          }
-        } catch {
-          // JSON不完整，等待下一 chunk
-        }
-      }
+      const data = await resp.json();
+      setCode(data.code || "");
+      if (data.tip) setMessages((m) => [...m, { role: "assistant", content: data.tip }]);
+    } catch (e: any) {
+      alert("生成出错：" + e.message);
+    } finally {
+      setBusy(false);
     }
-
-    setCode(codeContent); // 填入编辑器
-    if (tipContent) setMessages((m) => [...m, { role: "assistant", content: tipContent }]); // tip放聊天区
-
-  } catch (e: any) {
-    alert("生成出错：" + e.message);
-  } finally {
-    setBusy(false);
-  }
-};
-
+  };
 
   return (
     <div style={{ position: "fixed", inset: 0, display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden", background: "#fff" }}>
@@ -183,6 +179,7 @@ const generateErrorCode = async () => {
             </>
           )}
           <button onClick={runCode} disabled={busy}>运行</button>
+          <button onClick={analyzeCode} disabled={busy}>分析代码</button>
         </div>
 
         <div style={{ flex: 1, minHeight: 0 }}>
