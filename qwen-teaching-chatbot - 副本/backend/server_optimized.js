@@ -42,6 +42,20 @@ let SYSTEM_PROMPT = `
 `;
 let promptMetadata = { version: "default", timestamp: new Date().toISOString(), score: 0, source: "manual" };
 
+// 🆕 错误代码生成提示词
+let ERROR_GENERATION_PROMPT = `你是一名编程教学助手。
+请生成一段带有明显错误的 Python 代码，满足以下要求：
+1. 代码本体（包括变量名、函数名、字符串内容、打印输出等）必须全为英文或数字，不能包含任何中文或全角字符。
+2. 代码中必须包含中文注释（# 开头），用简短自然的中文解释代码的意图。
+3. 代码应能被 Python 解释器运行（尽管有错误），结构完整。
+4. 输出格式严格为 JSON：{"code": "...", "tip": "..."}
+5. "tip" 字段用简短中文（≤50字）说明错误类型和严重等级。
+6. 不要在代码中使用中文字符串、中文变量名、或中文函数名。
+7. 不要在 JSON 外输出任何其他文字或说明。
+`;
+
+let errorPromptMetadata = { version: "default", timestamp: new Date().toISOString(), score: 0, source: "manual" };
+
 // 加载优化后的系统提示词
 function loadOptimizedPrompt() {
   try {
@@ -79,9 +93,47 @@ function loadOptimizedPrompt() {
   }
 }
 
+// 🆕 加载优化后的错误生成提示词
+function loadOptimizedErrorPrompt() {
+  try {
+    const errorResultsDir = path.join(__dirname, "../results/error_generation");
+    if (!fs.existsSync(errorResultsDir)) return false;
+
+    const files = fs
+      .readdirSync(errorResultsDir)
+      .filter(f => f.startsWith("error_generation_prompt_") && f.endsWith(".txt"))
+      .sort()
+      .reverse();
+    if (files.length === 0) return false;
+
+    const latestPromptFile = files[0];
+    const promptPath = path.join(errorResultsDir, latestPromptFile);
+    ERROR_GENERATION_PROMPT = fs.readFileSync(promptPath, "utf-8");
+
+    const jsonFile = latestPromptFile.replace("error_generation_prompt_", "optimized_error_prompt_").replace(".txt", ".json");
+    const jsonPath = path.join(errorResultsDir, jsonFile);
+    if (fs.existsSync(jsonPath)) {
+      const metadata = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+      errorPromptMetadata = {
+        version: latestPromptFile.replace("error_generation_prompt_", "").replace(".txt", ""),
+        timestamp: metadata.timestamp || new Date().toISOString(),
+        score: metadata.score || 0,
+        source: "optimized",
+        metrics: metadata.metrics || {}
+      };
+    }
+    console.log(`✅ 已加载优化错误生成提示词: ${latestPromptFile} (得分: ${errorPromptMetadata.score.toFixed(4)})`);
+    return true;
+  } catch (error) {
+    console.error("❌ 加载优化错误生成提示词失败:", error.message);
+    return false;
+  }
+}
+
 // 启动时加载优化提示词
 console.log("\n🚀 初始化系统提示词...");
 loadOptimizedPrompt();
+loadOptimizedErrorPrompt();
 
 // ---------------- 聊天接口（流式 + 系统提示词，回答限制约 500 字） ----------------
 app.post("/api/chat", async (req, res) => {
@@ -98,7 +150,7 @@ app.post("/api/chat", async (req, res) => {
       model: chosenModel,
       messages: messagesWithSystem,
       temperature: temperature ?? 0.6,
-      max_tokens: max_tokens ?? 500,
+      max_tokens: max_tokens ?? 1500,
       stream: true
     });
 
@@ -140,44 +192,114 @@ app.post("/api/run-python", async (req, res) => {
   });
 });
 
-// ---------------- 错误代码生成 ----------------
+// ---------------- 错误代码生成（改写版） ----------------
 app.post("/api/generate-error", async (req, res) => {
   try {
     const { level = "中等", type = "语法错误" } = req.body || {};
     const chosenModel = process.env.QWEN_MODEL || "qwen-plus";
 
-    const prompt = `
-你是一名编程教学助手。
-生成一段含错误的 Python 代码：
-- 错误等级: ${level}
-- 错误类型: ${type}
-要求：
-1. 代码可直接运行，带中文注释
-2. 同时生成一条 ≤50字提示，说明错误类型和等级
-请严格输出 JSON: {"code": "...", "tip": "..."}
+    // 将系统提示词和用户请求合并成一个完整 prompt
+    const fullPrompt = `
+你是一名专业的编程教学助手。
+生成一段含错误的 Python 代码，要求：
+1. 错误等级: ${level}
+2. 错误类型: ${type}
+3. 代码可直接运行，带中文注释
+4. 同时生成一条 ≤50字提示，说明错误类型和等级
+请严格输出 **纯 JSON**，格式如下：
+{"code": "...", "tip": "..."}
+⚠️ 不要输出 Markdown、换行或多余文字
 `;
 
+    // 调用 OpenAI 接口
     const completion = await client.chat.completions.create({
       model: chosenModel,
-      messages: [{ role: "user", content: prompt }],
+      messages: [{ role: "user", content: fullPrompt }],
       temperature: 0.7,
       max_tokens: 500,
       stream: false
     });
 
     const respText = completion.choices?.[0]?.message?.content || "";
+
     let parsed = { code: "", tip: "" };
-    try { parsed = JSON.parse(respText); } catch (e) {
-      console.error("解析生成错误JSON失败:", e);
-      parsed = { code: respText, tip: `${level} ${type}（提示生成失败）` };
+    try {
+      // 直接解析 JSON
+      parsed = JSON.parse(respText);
+    } catch (err) {
+      console.error("❌ JSON解析失败:", err);
+      // 解析失败时，返回完整文本，避免截断
+      parsed = {
+        code: `# 生成失败，请重试\n# 原始响应:\n${respText.substring(0, 500)}`,
+        tip: `${level} ${type}（JSON解析失败）`
+      };
     }
 
+    // 返回接口，Node 会自动进行安全转义
     res.json(parsed);
+
   } catch (err) {
     console.error("Generate-error failed:", err);
     res.status(500).json({ error: err.message || "Generate error API failed" });
   }
 });
+
+
+// ---------------- 分析代码功能 ----------------
+app.post("/api/analyze-code", async (req, res) => {
+  try {
+    const { code } = req.body;
+    if (!code) return res.status(400).json({ error: "No code provided" });
+
+    // 先尝试运行代码，判断是否有语法或运行错误
+    const py = spawn("python", ["-c", code]);
+    let output = "";
+    let error = "";
+
+    py.stdout.on("data", (data) => { output += data.toString(); });
+    py.stderr.on("data", (data) => { error += data.toString(); });
+
+    py.on("close", async () => {
+      // 生成分析提示词
+      const analysisPrompt = `
+你是一名专业的编程教学助手。
+分析下面这段 Python 代码：
+代码内容：
+${code}
+
+要求：
+1. 先判断代码是否存在错误，如果有，请指出错误类型和位置。
+2. 解释这段代码的功能和执行逻辑。
+3. 给出改进或优化建议（如果有）。
+4. 用清晰自然的语言输出。
+`;
+
+      try {
+        const completion = await client.chat.completions.create({
+          model: process.env.QWEN_MODEL || "qwen-plus",
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: analysisPrompt }
+          ],
+          temperature: 0.6,
+          max_tokens: 1000,
+          stream: false
+        });
+
+        const analysis = completion.choices?.[0]?.message?.content || "";
+        res.json({ runtimeError: error || null, analysis, output: output || null });
+      } catch (aiErr) {
+        console.error("分析代码失败:", aiErr);
+        res.status(500).json({ error: aiErr.message || "Analyze code failed" });
+      }
+    });
+  } catch (err) {
+    console.error("分析代码接口异常:", err);
+    res.status(500).json({ error: err.message || "Analyze code API failed" });
+  }
+});
+
+
 
 // ---------------- 提示词管理接口 ----------------
 app.get("/api/prompt-info", (req, res) => {
